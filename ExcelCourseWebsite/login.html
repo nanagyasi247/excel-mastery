@@ -4,23 +4,393 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - Excel Mastery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      min-width: 100vw;
+      background: linear-gradient(120deg, #e0ecff 38%, #f9fbff 100%);
+      font-family: 'Inter', Arial, sans-serif;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+    body {
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      align-items: stretch;
+      justify-content: stretch;
+    }
+    .wrapper {
+      display: flex;
+      flex-direction: row;
+      width: 96vw;
+      height: 92vh;
+      min-height: 510px;
+      min-width: 300px;
+      margin: auto;
+      background: rgba(255,255,255,0.97);
+      border-radius: 32px;
+      box-shadow: 0 8px 36px rgba(40, 94, 181, 0.12), 0 2.5px 6px rgba(30, 144, 255, 0.10);
+      overflow: hidden;
+      position: relative;
+      transition: all 0.25s;
+    }
+    .login-image {
+      background: linear-gradient(118deg, #b4d4fc 70%, #e0ecff 100%);
+      flex: 1.4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 340px;
+      height: 100%;
+      position: relative;
+      padding: 0;
+      transition: flex-basis 0.3s;
+    }
+    .login-image img {
+      width: 97%;
+      max-width: 520px;
+      max-height: 48vh;
+      min-height: 240px;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(52,115,220,0.15);
+      margin: 40px 0 0 0;
+      border: 3px solid #fff;
+      filter: brightness(98%) saturate(1.10);
+      transition: filter 0.2s, box-shadow 0.2s;
+      display: block;
+    }
+    .login-image img:hover {
+      filter: brightness(104%) saturate(1.19);
+      box-shadow: 0 14px 48px rgba(33, 89, 181, 0.12);
+    }
+    .tagline {
+      color: #225a99;
+      font-size: 1.15rem;
+      text-align: center;
+      margin: 2.3em 0 0 0;
+      background: #eaf5ffbd;
+      border-radius: 14px;
+      padding: 19px 40px 15px 40px;
+      box-shadow: 0 3px 15px #daf0ff10;
+      font-weight: 500;
+      width: 89%;
+      line-height: 1.8;
+      max-width: 600px;
+      min-width: 220px;
+    }
+    .login-container {
+      flex: 1;
+      padding: 4.2rem 3.8rem 3.6rem 3.8rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 370px;
+      background: rgba(255,255,255,0.99);
+      height: 100%;
+      box-sizing: border-box;
+      z-index: 2;
+    }
+    .login-container h2 {
+      color: #2176ff;
+      margin-bottom: 0.55rem;
+      font-weight: 700;
+      letter-spacing: -1px;
+      font-size: 2.4rem;
+      text-align: center;
+      text-shadow: 0 2px 12px #ebf3ff;
+      margin-top: 0;
+    }
+    .login-top-title {
+      width: 100%;
+      text-align: center;
+      font-size: 1.21rem;
+      font-weight: 600;
+      color: #1c478c;
+      margin-bottom: 1.5em;
+      margin-top: -0.08em;
+      letter-spacing: -0.5px;
+    }
+    form#loginForm {
+      width: 100%;
+      max-width: 425px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.18rem;
+      margin-bottom: 1.2rem;
+    }
+    .input-group {
+      position: relative;
+      width: 100%;
+    }
+    form#loginForm input {
+      padding: 1.18rem 1.2rem;
+      padding-right: 52px;
+      border: none;
+      border-radius: 9px;
+      font-size: 1.12rem;
+      background: #f4f8fd;
+      box-shadow: 0 2.3px 9px 0px rgba(33, 118, 255, 0.04);
+      outline: none;
+      transition: background 0.2s, box-shadow 0.18s;
+      width: 100%;
+    }
+    form#loginForm input:focus {
+      background: #e5f0fd;
+      box-shadow: 0 3.5px 10px 0px rgba(33, 118, 255, 0.16);
+    }
+    .toggle-password {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 2;
+      padding: 4px;
+      margin: 0;
+      color: #2176ff;
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      transition: color 0.18s;
+    }
+    .toggle-password:focus {
+      color: #14345e;
+    }
+    form#loginForm button[type="submit"] {
+      background: linear-gradient(90deg, #2176ff 80%, #66aaff 100%);
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      padding: 1.16rem 1rem;
+      font-size: 1.15rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 0.8rem;
+      transition: background 0.15s, box-shadow 0.15s, transform 0.08s;
+      box-shadow: 0 2.5px 13px rgba(74, 144, 226, 0.10);
+      letter-spacing: 0.03em;
+    }
+    form#loginForm button[type="submit"]:hover {
+      background: linear-gradient(90deg, #1861c5 80%, #2581ee 100%);
+      transform: translateY(-1px) scale(1.018);
+      box-shadow: 0 7px 27px rgba(33, 118, 255, 0.16);
+    }
+    .divider {
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+      border-bottom: 1.7px solid #e6eef8;
+      line-height: 0.1em;
+      margin: 2.1em 0 1.25em;
+      color: #9ab0cb;
+      font-size: 1.06em;
+      position: relative;
+    }
+    .divider span {
+      background: #fff;
+      padding: 0 13px;
+      position: relative;
+      z-index: 2;
+    }
+    #google-login-btn {
+      width: 100%;
+      max-width: 420px;
+      background: #fff;
+      color: #2176ff;
+      border: 2px solid #2176ff;
+      border-radius: 7px;
+      padding: 1.07rem 1rem;
+      font-size: 1.13rem;
+      font-weight: 600;
+      box-shadow: 0 1.5px 10px rgba(74, 144, 226, 0.07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.7em;
+      cursor: pointer;
+      margin-bottom: 0.87em;
+      transition: background 0.10s, color 0.10s, border 0.17s, box-shadow 0.18s;
+      outline: none;
+    }
+    #google-login-btn:active {
+      outline: 2px solid #2176ff44;
+    }
+    #google-login-btn:hover {
+      background: #2176ff;
+      color: #fff;
+      border: 2px solid #1151ac;
+      box-shadow: 0 4px 19px rgba(33, 118, 255, 0.13);
+    }
+    #google-login-btn svg {
+      width: 23px;
+      height: 23px;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+    .aux-links {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+      max-width: 420px;
+      margin-top: 0.55em;
+      font-size: 1.07em;
+    }
+    .aux-links a {
+      color: #2176ff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: text-decoration 0.12s;
+    }
+    .aux-links a:hover {
+      text-decoration: underline;
+    }
+    .signup-link {
+      margin-top: 1.68em;
+      text-align: center;
+      font-size: 1.05em;
+      color: #7a88a8;
+      max-width: 420px;
+      width: 100%;
+    }
+    .signup-link a {
+      color: #2176ff;
+      text-decoration: none;
+      font-weight: 700;
+      margin-left: 4px;
+      transition: text-decoration 0.13s;
+    }
+    .signup-link a:hover {
+      text-decoration: underline;
+    }
+    /* Responsive Design */
+    @media (max-width: 1170px) {
+      .wrapper { width: 99vw; }
+      .login-image img {
+        max-width: 97vw;
+        min-width: 180px;
+      }
+    }
+    @media (max-width: 900px) {
+      .wrapper {
+        flex-direction: column;
+        height: 99vh;
+        width: 99vw;
+        min-width: unset;
+        border-radius: 0;
+      }
+      .login-image, .login-container {
+        width: 100%;
+        min-width: 0;
+        border-radius: 0;
+      }
+      .login-image img {
+        margin: 32px auto 0 auto;
+        max-width: 95vw;
+        min-width: 110px;
+        min-height: 110px;
+      }
+      .tagline {
+        margin: 1.5em auto 0 auto;
+        padding: 12px 6vw;
+        max-width: 92vw;
+        font-size: 1.04rem;
+      }
+      .login-container {
+        padding: 2.1rem 1.1rem 1.6rem 1.1rem;
+        justify-content: flex-start;
+      }
+      form#loginForm, #google-login-btn, .divider, .aux-links, .signup-link {
+        max-width: 97vw !important;
+      }
+    }
+    @media (max-width: 530px) {
+      .wrapper {
+        padding: 0;
+        min-width: 0;
+        width: 100vw;
+        height: 100vh;
+      }
+      .login-container {
+        padding: 1.1rem 0.25rem;
+        min-width: unset;
+      }
+      .login-image { min-width: 0; }
+      .login-image img { margin: 21px auto 0 auto; }
+      .tagline { padding: 10px 2vw; }
+    }
+  </style>
 </head>
 <body>
-  <h2>Login</h2>
-  <form id="loginForm">
-    <input type="email" id="loginEmail" placeholder="Email" required>
-    <input type="password" id="loginPassword" placeholder="Password" required>
-    <button type="submit">Login</button>
-  </form>
-
-  <!-- Google login button -->
-  <button id="google-login-btn">Login with Google</button>
-
-  <!-- Forgot password link -->
-  <p><a href="#" id="forgot-password">Forgot your password?</a></p>
-
-  <p>Don't have an account? <a href="signup.html">Sign up here</a></p>
-
+  <div class="wrapper">
+    <div class="login-image">
+      <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=700&q=80"
+           alt="Students grouped behind a computer">
+      <div class="tagline">
+        The perfect, most affordable Excel course for you.<br>
+        Anywhere, anytime, on any device.
+      </div>
+    </div>
+    <div class="login-container">
+      <h2>Sign in to Excel Mastery</h2>
+      <div class="login-top-title">Login to continue learning</div>
+      <form id="loginForm">
+        <div class="input-group">
+          <input type="email" id="loginEmail" placeholder="Email" required>
+        </div>
+        <div class="input-group">
+          <input type="password" id="loginPassword" placeholder="Password" required>
+          <button class="toggle-password" type="button" id="togglePasswordBtn" aria-label="Show or hide password">
+            <!-- Eye SVG icon (closed by default) -->
+            <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="none" viewBox="0 0 24 24"><path stroke="#2176ff" stroke-width="2" d="M1.997 12.003C3.35 7.473 7.39 4.5 12 4.5c4.611 0 8.65 2.972 10.003 7.502a1.44 1.44 0 0 1 0 .994C20.649 16.527 16.61 19.5 12 19.5c-4.611 0-8.65-2.972-10.003-7.502a1.44 1.44 0 0 1 0-.995Z"/><circle cx="12" cy="12" r="3.5" stroke="#2176ff" stroke-width="2"/></svg>
+          </button>
+        </div>
+        <button type="submit">Login</button>
+      </form>
+      <div class="divider"><span>or</span></div>
+      <!-- Google login button -->
+      <button id="google-login-btn">
+        <!-- Google logo SVG: -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><g><path fill="#4285F4" d="M43.6 20.5H42V20.4H24v7.2h11.2C33.8 32.3 29.4 35 24 35c-6.1 0-11-4.9-11-11s4.9-11 11-11c2.7 0 5.2.98 7.1 2.6l5.3-5.3C33.5 7.5 29 5.5 24 5.5 13.5 5.5 5 14 5 24s8.5 18.5 19 18.5c9.5 0 18.5-7 18.5-18.5 0-1.2-.1-2.1-.3-3z"/><path fill="#34A853" d="M6.8 14.7l5.9 4.3C14.6 16.2 18.9 13 24 13c2.7 0 5.2.98 7.1 2.6l5.3-5.3C33.5 7.5 29 5.5 24 5.5c-6.6 0-12.2 4-15.1 9.3z"/><path fill="#FBBC05" d="M24 43.5c5.4 0 9.9-1.8 13.2-4.9l-6.1-5c-2 1.5-4.6 2.4-7.2 2.4-5.4 0-9.9-3.7-11.5-8.4l-6 4.7C5.7 39 13.5 43.5 24 43.5z"/><path fill="#EA4335" d="M43.6 20.5H42V20.4H24v7.2h11.2C34.9 31.7 30.2 35 24 35c-4.7 0-8.7-3-10.2-7.2l-6 4.7C9.8 39.1 16.3 43.5 24 43.5c9.5 0 18.5-7 18.5-18.5 0-1.2-.1-2.1-.3-3z"/></g></svg>
+        Continue with Google
+      </button>
+      <div class="aux-links">
+        <a href="#" id="forgot-password">Forgot your password?</a>
+      </div>
+      <div class="signup-link">
+        Don't have an account?
+        <a href="signup.html">Sign up here</a>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Password toggle logic
+    document.getElementById('togglePasswordBtn').addEventListener('click', function() {
+      const password = document.getElementById('loginPassword');
+      const icon = document.getElementById('eyeIcon');
+      if (password.type === 'password') {
+        password.type = 'text';
+        // Eye open SVG
+        icon.innerHTML =
+          '<path stroke="#2176ff" stroke-width="2" d="M1.997 12.003C3.35 7.473 7.39 4.5 12 4.5c4.611 0 8.65 2.972 10.003 7.502a1.44 1.44 0 0 1 0 .994C20.649 16.527 16.61 19.5 12 19.5c-4.611 0-8.65-2.972-10.003-7.502a1.44 1.44 0 0 1 0-.995Z"/><circle cx="12" cy="12" r="3.5" stroke="#2176ff" stroke-width="2"/><line x1="5" y1="19" x2="19" y2="5" stroke="#2176ff" stroke-width="2"/>';
+      } else {
+        password.type = 'password';
+        // Eye closed SVG
+        icon.innerHTML =
+          '<path stroke="#2176ff" stroke-width="2" d="M1.997 12.003C3.35 7.473 7.39 4.5 12 4.5c4.611 0 8.65 2.972 10.003 7.502a1.44 1.44 0 0 1 0 .994C20.649 16.527 16.61 19.5 12 19.5c-4.611 0-8.65-2.972-10.003-7.502a1.44 1.44 0 0 1 0-.995Z"/><circle cx="12" cy="12" r="3.5" stroke="#2176ff" stroke-width="2"/>';
+      }
+    });
+  </script>
   <script type="module" src="app.js"></script>
 </body>
 </html>
