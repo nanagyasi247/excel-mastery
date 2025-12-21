@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sign Up - Excel Mastery</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Inter', Arial, sans-serif;
+  background: linear-gradient(120deg, #e0ecff 45%, #f9fbff 100%);
+}
+
+.signup-main {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* LEFT SIDE */
+.left {
+  flex: 1.4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+
+.left-card {
+  width: 100%;
+  max-width: 520px;
+  background: #fff;
+  border-radius: 22px;
+  padding: 2rem;
+  box-shadow: 0 6px 32px rgba(30,114,220,0.08);
+}
+
+/* LOGO */
+.em-logo {
+  text-align: left;
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #2433ff;
+  margin-top: -4px;
+  margin-bottom: 12px;
+}
+
+.em-logo span {
+  font-size: 1rem;
+  color: #44377a;
+  margin-left: 8px;
+}
+
+/* HEADER */
+.full-width-header {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #2473ff;
+}
+
+.subtitle {
+  text-align: center;
+  color: #254e81;
+  font-weight: 600;
+  margin-bottom: 1.4rem;
+}
+
+/* GOOGLE BUTTON */
+#google-signup-btn {
+  width: 100%;
+  background: #f3f8ff;
+  border: 1.5px solid #d6e9ff;
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+#google-signup-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+.divider {
+  margin: 18px 0;
+  text-align: center;
+  border-bottom: 1px solid #e6eef8;
+  line-height: 0.1em;
+}
+
+.divider span {
+  background: #fff;
+  padding: 0 10px;
+  color: #8aaed1;
+}
+
+/* FORM */
+.input-label {
+  font-weight: 600;
+  margin: 10px 0 5px;
+  color: #2d4a7f;
+}
+
+.input-group {
+  position: relative;
+}
+
+input {
+  width: 100%;
+  padding: 12px 44px 12px 12px;
+  border-radius: 7px;
+  border: 1px solid #dde6f3;
+  background: #f8faff;
+  font-size: 1rem;
+}
+
+input:focus {
+  outline: none;
+  border-color: #2176ff;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #2375ff;
+}
+
+/* BUTTON */
+.main-signup-btn {
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  border: none;
+  border-radius: 7px;
+  color: #fff;
+  background: linear-gradient(90deg, #2375ff, #81bfff);
+  cursor: pointer;
+}
+
+.signup-link {
+  margin-top: 18px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.signup-link a {
+  color: #246eff;
+  text-decoration: none;
+  margin-left: 6px;
+}
+
+/* RIGHT SIDE */
+.right {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.right img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.right::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(35,117,255,0.55), rgba(224,236,255,0.9));
+}
+
+.right-content {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  color: #fff;
+  z-index: 2;
+}
+
+@media (max-width: 900px) {
+  .right { display: none; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="signup-main">
+
+  <div class="left">
+    <div class="left-card">
+
+      <div class="em-logo">EM <span>Excel Mastery</span></div>
+
+      <div class="full-width-header">WELCOME TO EXCEL MASTERY</div>
+      <div class="subtitle">Sign up to start learning</div>
+
+      <button id="google-signup-btn">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
+        Sign up with Google
+      </button>
+
+      <div class="divider"><span>or</span></div>
+
+      <form id="signupForm">
+
+        <div class="input-label">Full Name</div>
+        <input type="text" id="signup-name" required>
+
+        <div class="input-label">Email</div>
+        <input type="email" id="signup-email" required>
+
+        <div class="input-label">Password</div>
+        <div class="input-group">
+          <input type="password" id="signup-password" required>
+          <button type="button" class="toggle-password" onclick="toggleEye('signup-password', this)">Show</button>
+        </div>
+
+        <div class="input-label">Confirm Password</div>
+        <div class="input-group">
+          <input type="password" id="signup-password-confirm" required>
+          <button type="button" class="toggle-password" onclick="toggleEye('signup-password-confirm', this)">Show</button>
+        </div>
+
+        <button class="main-signup-btn" type="submit">Sign Up</button>
+      </form>
+
+      <div class="signup-link">
+        Already have an account?
+        <a href="login.html">Sign in here</a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="right">
+    <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1200&q=80">
+    <div class="right-content">
+      <h2>Find the perfect Excel course</h2>
+      <p>Anywhere, anytime, on any device.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Password toggle with "Show"/"Hide"
+function toggleEye(inputId, btn) {
+  const input = document.getElementById(inputId);
+  if (input.type === "password") {
+    input.type = "text";
+    btn.textContent = "Hide";
+  } else {
+    input.type = "password";
+    btn.textContent = "Show";
+  }
+}
+
+// Password confirmation check
+document.getElementById("signupForm").addEventListener("submit", function(e) {
+  const password = document.getElementById("signup-password").value;
+  const confirmPassword = document.getElementById("signup-password-confirm").value;
+  if (password !== confirmPassword) {
+    e.preventDefault();
+    alert("Passwords do not match!");
+  }
+});
+</script>
+
+<!-- EmailJS SDK -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="text/javascript">
+  (function(){
+      emailjs.init("0_qHSrLzvnLZQsUFT"); // ← Replace with your EmailJS public key
+      console.log("✅ EmailJS v4 loaded", emailjs);
+  })();
+</script>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
